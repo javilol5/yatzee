@@ -1,131 +1,126 @@
-﻿# Yatzy Refactoring Kata
+# Kata de Refactorización de Yatzy
 
-**Kata readme by [Emily Bache](https://github.com/emilybache)** Thanks!! :clap::clap:
+**Readme de la kata por [Emily Bache](https://github.com/emilybache)** ¡Gracias! :clap::clap:
 
-[Emily Bache kata repo](https://github.com/emilybache/Yatzy-Refactoring-Kata)
+[Repositorio de kata de Emily Bache](https://github.com/emilybache/Yatzy-Refactoring-Kata)
 
-*Designed by Jon Jagger. It's available in his Cyber-Dojo. [Blog post](http://jonjagger.blogspot.co.uk/2012/05/yahtzee-cyber-dojo-refactoring-in-java.html)*
+*Diseñada por Jon Jagger. Está disponible en su Cyber-Dojo. [Publicación en el blog](http://jonjagger.blogspot.co.uk/2012/05/yahtzee-cyber-dojo-refactoring-in-java.html)*
 
+---
 
-## Kata: Yatzy rules
+## Kata: Reglas de Yatzy
 
-The game of Yatzy is a simple dice game. Each player
-rolls five six-sided dice. They can re-roll some or all
-of the dice up to three times (including the original roll).
+El juego de Yatzy es un simple juego de dados. Cada jugador
+lanza cinco dados de seis caras. Pueden volver a tirar algunos o todos
+los dados hasta tres veces (incluido el lanzamiento inicial).
 
-For example, suppose a players rolls:
+Por ejemplo, supongamos que un jugador lanza:
 
     3,4,5,5,2
     
-They hold (-,-,5,5,-) and re-roll (3,4,-,-,2):
+Mantiene (-,-,5,5,-) y vuelve a tirar (3,4,-,-,2):
 
     5,1,5,5,3
 
-They hold (5,-,5,5,-) and re-roll (-,1,-,-,3):
+Mantiene (5,-,5,5,-) y vuelve a tirar (-,1,-,-,3):
 
     5,6,5,5,2
 
-The player then places the roll in a category, such as ones,
-twos, fives, pair, two pairs etc (see below). If the roll is
-compatible with the category, the player gets a score for the
-roll according to the rules. If the roll is not compatible
-with the category, the player scores zero for the roll.
+El jugador luego coloca la tirada en una categoría, como unos,
+doses, cincos, par, dos pares, etc. (ver más abajo). Si la tirada es
+compatible con la categoría, el jugador obtiene una puntuación
+según las reglas. Si no es compatible con la categoría, el jugador
+obtiene cero puntos.
 
-For example, suppose a player scores 5,6,5,5,2 in the fives
-category they would score 15 (three fives). The score for
-that go is then added to their total and the category cannot
-be used again in the remaining goes for that game. 
-A full game consists of one go for each category. Thus, for
-their last go in a game, a player must choose their only
-remaining category.
+Por ejemplo, supongamos que un jugador obtiene 5,6,5,5,2 en la categoría
+de cincos. Puntuaría 15 (tres cincos). La puntuación de esa ronda
+se suma al total del jugador y la categoría no puede volver a usarse
+durante el resto del juego.
+Un juego completo consiste en una tirada para cada categoría. Por lo tanto, en
+la última ronda de un juego, un jugador debe elegir su única categoría restante.
 
-Your task is to score a GIVEN roll in a GIVEN category.
-You do NOT have to program the random dice rolling.
-The game is NOT played by letting the computer choose the
-highest scoring category for a given roll.
-  
+Tu tarea es puntuar una **tirada dada** en una **categoría dada**.
+No necesitas programar el lanzamiento aleatorio de los dados.
+El juego **no implica que el ordenador elija la categoría con mayor puntuación**
+para una tirada.
 
-## Kata: Yatzy Categories and Scoring Rules
+---
+
+## Kata: Categorías de Yatzy y Reglas de Puntuación
 
 ### Chance: 
-The player scores the sum of all dice, no matter what they read.
-For example:
+El jugador puntúa la suma de todos los dados, sin importar el valor.  
+Por ejemplo:
   
--   1,1,3,3,6 placed on "chance" scores 14 (1+1+3+3+6)
--   4,5,5,6,1 placed on "chance" scores 21 (4+5+5+6+1)  
+-   1,1,3,3,6 colocado en "chance" puntúa 14 (1+1+3+3+6)
+-   4,5,5,6,1 colocado en "chance" puntúa 21 (4+5+5+6+1)  
 
 ### Yatzy: 
-If all dice have the same number,
-the player scores 50 points. 
-For example:
+Si todos los dados tienen el mismo número, el jugador puntúa 50 puntos.  
+Por ejemplo:
   
--   1,1,1,1,1 placed on "yatzy" scores 50
--   1,1,1,2,1 placed on "yatzy" scores 0
+-   1,1,1,1,1 colocado en "yatzy" puntúa 50
+-   1,1,1,2,1 colocado en "yatzy" puntúa 0
 
-### Ones, Twos, Threes, Fours, Fives, Sixes: 
-The player scores the sum of the dice that reads one, 
-two, three, four, five or six, respectively. 
-For example:
+### Unos, Doses, Treses, Cuatros, Cincos, Seises: 
+El jugador puntúa la suma de los dados que coincidan con el número correspondiente.  
+Por ejemplo:
 
--   1,1,2,4,4 placed on "fours" scores 8 (4+4)
--   2,3,2,5,1 placed on "twos" scores 4  (2+2)
--   3,3,3,4,5 placed on "ones" scores 0
+-   1,1,2,4,4 colocado en "cuatros" puntúa 8 (4+4)
+-   2,3,2,5,1 colocado en "doses" puntúa 4  (2+2)
+-   3,3,3,4,5 colocado en "unos" puntúa 0
 
-### Pair: 
-The player scores the sum of the two highest matching dice.
-For example, when placed on "pair":
+### Par: 
+El jugador puntúa la suma de los dos dados iguales más altos.  
+Por ejemplo, cuando se coloca en "par":
   
--   3,3,3,4,4 scores 8 (4+4)
--   1,1,6,2,6 scores 12 (6+6)
--   3,3,3,4,1 scores 6 (3+3)
--   3,3,3,3,1 scores 6 (3+3)
+-   3,3,3,4,4 puntúa 8 (4+4)
+-   1,1,6,2,6 puntúa 12 (6+6)
+-   3,3,3,4,1 puntúa 6 (3+3)
+-   3,3,3,3,1 puntúa 6 (3+3)
 
-### Two pairs: 
-If there are two pairs of dice with the same number, the
-player scores the sum of these dice. 
-For example, when placed on "two pairs":
+### Dos pares: 
+Si hay dos pares de dados iguales, el jugador puntúa la suma de estos dados.  
+Por ejemplo, cuando se coloca en "dos pares":
   
--   1,1,2,3,3 scores 8 (1+1+3+3)
--   1,1,2,3,4 scores 0
--   1,1,2,2,2 scores 6 (1+1+2+2)
+-   1,1,2,3,3 puntúa 8 (1+1+3+3)
+-   1,1,2,3,4 puntúa 0
+-   1,1,2,2,2 puntúa 6 (1+1+2+2)
 
-### Three of a kind: 
-If there are three dice with the same number, the player
-scores the sum of these dice. 
-For example, when placed on "three of a kind":
+### Trío: 
+Si hay tres dados iguales, el jugador puntúa la suma de estos dados.  
+Por ejemplo, cuando se coloca en "trío":
     
--    3,3,3,4,5 scores 9 (3+3+3)
--    3,3,4,5,6 scores 0
--    3,3,3,3,1 scores 9 (3+3+3)
+-    3,3,3,4,5 puntúa 9 (3+3+3)
+-    3,3,4,5,6 puntúa 0
+-    3,3,3,3,1 puntúa 9 (3+3+3)
 
-### Four of a kind: 
-If there are four dice with the same number, the player
-scores the sum of these dice. 
-For example, when placed on "four of a kind":
+### Póker (Cuatro iguales): 
+Si hay cuatro dados iguales, el jugador puntúa la suma de estos dados.  
+Por ejemplo, cuando se coloca en "cuatro iguales":
   
--    2,2,2,2,5 scores 8 (2+2+2+2)
--    2,2,2,5,5 scores 0
--    2,2,2,2,2 scores 8 (2+2+2+2)
+-    2,2,2,2,5 puntúa 8 (2+2+2+2)
+-    2,2,2,5,5 puntúa 0
+-    2,2,2,2,2 puntúa 8 (2+2+2+2)
 
-### Small straight: 
-When placed on "small straight", if the dice read
+### Escalera pequeña: 
+Cuando se coloca en "escalera pequeña", si los dados son:
 
    1,2,3,4,5, 
    
-the player scores 15 (the sum of all the dice).
+el jugador puntúa 15 (la suma de los dados).
 
-### Large straight: 
-When placed on "large straight", if the dice read
+### Escalera grande: 
+Cuando se coloca en "escalera grande", si los dados son:
 
    2,3,4,5,6, 
    
-the player scores 20 (the sum of all the dice).
+el jugador puntúa 20 (la suma de los dados).
 
-### Full house: 
-If the dice are two of a kind and three of a kind, the
-player scores the sum of all the dice. 
-For example, when placed on "full house":
+### Full: 
+Si los dados forman un trío y un par, el jugador puntúa la suma de todos los dados.  
+Por ejemplo, cuando se coloca en "full":
    
--    1,1,2,2,2 scores 8 (1+1+2+2+2) 
--    2,2,3,3,4 scores 0
--    4,4,4,4,4 scores 0
+-    1,1,2,2,2 puntúa 8 (1+1+2+2+2) 
+-    2,2,3,3,4 puntúa 0
+-    4,4,4,4,4 puntúa 0
