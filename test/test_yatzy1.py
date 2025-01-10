@@ -1,5 +1,7 @@
 from src.yatzy1 import Yatzy
+import pytest
 
+@pytest.mark.chance
 # These unit tests can be run using the py.test framework
 # available from http://pytest.org/
 
