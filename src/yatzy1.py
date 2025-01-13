@@ -1,70 +1,41 @@
 class Yatzy:
 
     @staticmethod
-    def chance(d1, d2, d3, d4, d5):
-        total = 0
-        total += d1
-        total += d2
-        total += d3
-        total += d4
-        total += d5
+    def chance(*dice):
+        total = sum(dice)
         return total
 
     @staticmethod
     def yatzy(dice):
-        counts = [0] * (len(dice) + 1)
-        for die in dice:
-            counts[die - 1] += 1
-        for i in range(len(counts)):
-            if counts[i] == 5:
-                return 50
-        return 0
+        if len(set(dice)) == 1:
+            return 50
+        else:
+            return 0
 
     @staticmethod
-    def ones(d1, d2, d3, d4, d5):
+    def ones(*dice):
         sum = 0
-        if (d1 == 1):
-            sum += 1
-        if (d2 == 1):
-            sum += 1
-        if (d3 == 1):
-            sum += 1
-        if (d4 == 1):
-            sum += 1
-        if (d5 == 1):
-            sum += 1
+        for ones in dice:
+            if ones == 1:
+                sum += 1
 
         return sum
 
     @staticmethod
-    def twos(d1, d2, d3, d4, d5):
+    def twos(*dice):
         sum = 0
-        if (d1 == 2):
-            sum += 2
-        if (d2 == 2):
-            sum += 2
-        if (d3 == 2):
-            sum += 2
-        if (d4 == 2):
-            sum += 2
-        if (d5 == 2):
-            sum += 2
+        for twos in dice:
+            if twos == 2:
+                sum += 2
         return sum
 
     @staticmethod
-    def threes(d1, d2, d3, d4, d5):
-        s = 0
-        if (d1 == 3):
-            s += 3
-        if (d2 == 3):
-            s += 3
-        if (d3 == 3):
-            s += 3
-        if (d4 == 3):
-            s += 3
-        if (d5 == 3):
-            s += 3
-        return s
+    def threes(*dice):
+        sum = 0
+        for threes in dice:
+            if threes == 3:
+                sum += 3
+        return sum
 
     def __init__(self, d1=0, d2=0, d3=0, d4=0, _5=0):
         self.dice = [0] * 5
@@ -74,60 +45,51 @@ class Yatzy:
         self.dice[3] = d4
         self.dice[4] = _5
 
-    def fours(self):
+    def fours(*dice):
         sum = 0
-        for at in range(5):
-            if (self.dice[at] == 4):
+        for fours in dice:
+            if fours == 4:
                 sum += 4
         return sum
 
-    def fives(self):
-        s = 0
-        i = 0
-        for i in range(len(self.dice)):
-            if (self.dice[i] == 5):
-                s = s + 5
-        return s
-
-    def sixes(self):
+    def fives(*dice):
         sum = 0
-        for at in range(len(self.dice)):
-            if (self.dice[at] == 6):
-                sum = sum + 6
+        for five in dice:
+            if five == 5:
+                sum += 5
         return sum
 
-    def score_pair(self, d1, d2, d3, d4, d5):
-        counts = [0] * 6
-        counts[d1 - 1] += 1
-        counts[d2 - 1] += 1
-        counts[d3 - 1] += 1
-        counts[d4 - 1] += 1
-        counts[d5 - 1] += 1
-        at = 0
-        for at in range(6):
-            if (counts[6 - at - 1] == 2):
-                return (6 - at) * 2
-        return 0
+    def sixes(*dice):
+        sum = 0
+        for sixes in dice:
+            if sixes == 6:
+                sum += 6
+        return sum
+
+    def score_pair(*dice):
+        sum = []
+        for die in dice:
+            diego_mira_y_aprende = list(dice)
+            diego_mira_y_aprende.remove(die)
+            if die in diego_mira_y_aprende:
+                sum.append(die * 2)
+        return max(sum)
+
+
+
 
     @staticmethod
-    def two_pair(d1, d2, d3, d4, d5):
-        counts = [0] * 6
-        counts[d1 - 1] += 1
-        counts[d2 - 1] += 1
-        counts[d3 - 1] += 1
-        counts[d4 - 1] += 1
-        counts[d5 - 1] += 1
-        n = 0
-        score = 0
-        for i in range(6):
-            if (counts[6 - i - 1] >= 2):
-                n = n + 1
-                score += (6 - i)
-
-        if (n == 2):
-            return score * 2
-        else:
-            return 0
+    def two_pair(*dice):
+        suma = []
+        for die in dice:
+            diego_mira_y_aprende = list(dice)
+            diego_mira_y_aprende.remove(die)
+            if die in diego_mira_y_aprende:
+                suma.append(die * 2)
+        if len(suma)%2 != 0:
+            suma.pop()
+        
+        return sum(suma)/2
 
     @staticmethod
     def four_of_a_kind(_1, _2, d3, d4, d5):
