@@ -144,44 +144,25 @@ class Yatzy:
     @staticmethod
     def largeStraight(*dice):
         unique_dice = sorted(set(dice))
-        small_straights = [
+        large_straights = [
             [1, 2, 3, 4, 5],
             [2, 3, 4, 5, 6]
         ]
 
-        for straight in small_straights:
+        for straight in large_straights:
             if all(num in unique_dice for num in straight):
                 return 20
     
         return 0
 
     @staticmethod
-    def fullHouse(d1, d2, d3, d4, d5):
-        tallies = []
-        _2 = False
-        i = 0
-        _2_at = 0
-        _3 = False
-        _3_at = 0
+    def fullHouse(*dice):
+        cuenta = []
+        for die in dice:
+            if die not in cuenta:
+                cuenta.append(die)
+        full = [dice.count(num) for num in cuenta]
+        if 3 in full and 2 in full:
+            return sum(dice)
 
-        tallies = [0] * 6
-        tallies[d1 - 1] += 1
-        tallies[d2 - 1] += 1
-        tallies[d3 - 1] += 1
-        tallies[d4 - 1] += 1
-        tallies[d5 - 1] += 1
-
-        for i in range(6):
-            if (tallies[i] == 2):
-                _2 = True
-                _2_at = i + 1
-
-        for i in range(6):
-            if (tallies[i] == 3):
-                _3 = True
-                _3_at = i + 1
-
-        if (_2 and _3):
-            return _2_at * 2 + _3_at * 3
-        else:
-            return 0
+        return 0
