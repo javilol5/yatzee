@@ -94,80 +94,65 @@ class Yatzy:
             return sum(respuesta)*2
         else:
             return 0
-        
-           
-            
-
-
-
-
-
-
-
-            
-
-
-
-
-
 
 
     @staticmethod
-    def four_of_a_kind(_1, _2, d3, d4, d5):
-        tallies = [0] * 6
-        tallies[_1 - 1] += 1
-        tallies[_2 - 1] += 1
-        tallies[d3 - 1] += 1
-        tallies[d4 - 1] += 1
-        tallies[d5 - 1] += 1
-        for i in range(6):
-            if (tallies[i] >= 4):
-                return (i + 1) * 4
+    def four_of_a_kind(*dice):
+        respuesta = []
+        cuenta = []
+        for die in dice:
+            if die not in cuenta:
+                cuenta.append(die)
+            elif die not in respuesta:
+                respuesta.append(die)
+        for num in respuesta:
+            if dice.count(num) >= 4:
+                return num * 4
+        return 0
+
+    
+
+    @staticmethod
+    def three_of_a_kind(*dice):
+        respuesta = []
+        cuenta = []
+        for die in dice:
+            if die not in cuenta:
+                cuenta.append(die)
+            elif die not in respuesta:
+                respuesta.append(die)
+        for num in respuesta:
+            if dice.count(num) >= 3:
+                return num * 3
         return 0
 
     @staticmethod
-    def three_of_a_kind(d1, d2, d3, d4, d5):
-        t = [0] * 6
-        t[d1 - 1] += 1
-        t[d2 - 1] += 1
-        t[d3 - 1] += 1
-        t[d4 - 1] += 1
-        t[d5 - 1] += 1
-        for i in range(6):
-            if (t[i] >= 3):
-                return (i + 1) * 3
+    def smallStraight(*dice):
+        unique_dice = sorted(set(dice))
+        small_straights = [
+            [1, 2, 3, 4],
+            [2, 3, 4, 5],
+            [3, 4, 5, 6]
+        ]
+
+        for straight in small_straights:
+            if all(num in unique_dice for num in straight):
+                return 15
+    
         return 0
 
     @staticmethod
-    def smallStraight(d1, d2, d3, d4, d5):
-        tallies = [0] * 6
-        tallies[d1 - 1] += 1
-        tallies[d2 - 1] += 1
-        tallies[d3 - 1] += 1
-        tallies[d4 - 1] += 1
-        tallies[d5 - 1] += 1
-        if (tallies[0] == 1 and
-                tallies[1] == 1 and
-                tallies[2] == 1 and
-                tallies[3] == 1 and
-                tallies[4] == 1):
-            return 15
-        return 0
+    def largeStraight(*dice):
+        unique_dice = sorted(set(dice))
+        small_straights = [
+            [1, 2, 3, 4, 5],
+            [2, 3, 4, 5, 6]
+        ]
 
-    @staticmethod
-    def largeStraight(d1, d2, d3, d4, d5):
-        tallies = [0] * 6
-        tallies[d1 - 1] += 1
-        tallies[d2 - 1] += 1
-        tallies[d3 - 1] += 1
-        tallies[d4 - 1] += 1
-        tallies[d5 - 1] += 1
-        if (tallies[1] == 1 and
-                tallies[2] == 1 and
-                tallies[3] == 1 and
-                tallies[4] == 1
-                and tallies[5] == 1):
-            return 20
+        for straight in small_straights:
+            if all(num in unique_dice for num in straight):
+                return 20
+    
         return 0
 
     @staticmethod
