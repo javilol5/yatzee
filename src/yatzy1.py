@@ -78,18 +78,39 @@ class Yatzy:
 
 
 
+
     @staticmethod
     def two_pair(*dice):
-        suma = []
+        respuesta = []
+        cuenta = []
         for die in dice:
-            diego_mira_y_aprende = list(dice)
-            diego_mira_y_aprende.remove(die)
-            if die in diego_mira_y_aprende:
-                suma.append(die * 2)
-        if len(suma)%2 != 0:
-            suma.pop()
+            if die not in cuenta:
+                cuenta.append(die)
+            elif die not in respuesta:
+                respuesta.append(die)
+            if len(respuesta) == 2:
+                break
+        if len(respuesta) == 2:
+            return sum(respuesta)*2
+        else:
+            return 0
         
-        return sum(suma)/2
+           
+            
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
 
     @staticmethod
     def four_of_a_kind(_1, _2, d3, d4, d5):
